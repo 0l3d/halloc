@@ -10,5 +10,10 @@ int main() {
     printf("%d\n", heap[i]);
   }
 
+  int *zero = zalloc(5, sizeof(int));
+  for (int i = 0; i < 5; i++)
+    printf("%d ", zero[i]);
+
+  hfree(zero);
   hfree(heap);
 }
