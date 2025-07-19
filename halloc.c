@@ -3,11 +3,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <valgrind/valgrind.h>
 block *head = NULL;
 
 #define SPLIT_THRESHOLD 16
-
-// TODO: valgrind implementation.
 
 // MALLOC ALTERNATIVE
 void *halloc(size_t alsiz) {
@@ -124,4 +123,21 @@ void *ralloc(void *addr, size_t alsiz) {
   memcpy(newaddr, addr, new->size);
   hfree(addr);
   return newaddr;
+}
+
+// NOTE: VALGRIND implementation
+
+void *halloc_safe(size_t size) {
+  void *ptr = halloc(size);
+  if (ptr) {
+    VALGRIND_MALLOCLIKE_BLOCK(ptr, size, 0, 0);
+  }
+  return ptr;
+}
+
+void hfree_safe(void *ptr) {
+  if (ptr) {
+    VALGRIND_FREELIKE_BLOCK(ptr, 0);
+    hfree(ptr);
+  }
 }

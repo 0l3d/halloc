@@ -2,6 +2,10 @@
 #include <stdio.h>
 
 int main() {
+
+  /*
+  NON VALGRIND COMPATIBILITY
+
   int heap_size = 100;
   int *heap = halloc(sizeof(int) * heap_size);
 
@@ -22,4 +26,14 @@ int main() {
 
   hfree(zero);
   hfree(heap);
+  */
+
+  // VALGRIND COMPATIBILITY
+  int heap_size = 50;
+  int *heap = halloc_safe(heap_size * sizeof(int));
+  for (int i = 0; i < heap_size; i++) {
+    heap[i] = i;
+    printf("%d\n", heap[i]);
+  }
+  hfree_safe(heap);
 }
