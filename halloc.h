@@ -10,6 +10,7 @@ typedef struct block {
   struct block *prev;
 } block;
 
-void *halloc(size_t addr);
+void *halloc(size_t alsiz);
 void *zalloc(size_t n, size_t size);
+void *ralloc(void *ptr, size_t alsiz);
 void hfree(void *ptr);

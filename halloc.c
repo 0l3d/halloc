@@ -75,9 +75,6 @@ void *zalloc(size_t n, size_t size) {
   return ptr;
 }
 
-// TODO: Realloc
-void *rallloc(void *ptr, size_t) {}
-
 void hfree(void *addr) {
   if (addr == NULL)
     return;
@@ -109,4 +106,22 @@ void hfree(void *addr) {
 
     printf(" Pointer does not belong to any allocated block.");
   }
+}
+
+void *ralloc(void *addr, size_t alsiz) {
+  if (!addr)
+    return halloc(alsiz);
+
+  block *new = (block *)addr - 1;
+  if (new->size >= alsiz)
+    return addr;
+
+  void *newaddr;
+  newaddr = halloc(alsiz);
+  if (!newaddr)
+    return NULL;
+
+  memcpy(newaddr, addr, new->size);
+  hfree(addr);
+  return newaddr;
 }

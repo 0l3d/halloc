@@ -14,6 +14,12 @@ int main() {
   for (int i = 0; i < 5; i++)
     printf("%d ", zero[i]);
 
+  heap = ralloc(heap, sizeof(int) * 200);
+  for (int i = heap_size; i < 200; i++) {
+    heap[i] = i;
+    printf("%d\n", heap[i]);
+  }
+
   hfree(zero);
   hfree(heap);
 }
