@@ -18,4 +18,4 @@ First of all, we start with certain questions. For memory allocation, we need to
 
 ## Author
 
-Created By **oled*
+Created By **oled**
